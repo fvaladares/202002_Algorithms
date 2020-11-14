@@ -1,4 +1,4 @@
-# 202002_Algoritms
+# 202002_Algorithms
 
 1. Aula0911.c Example code used on algorithm class of Pitagoras college. Topics:
     * Memory allocation
