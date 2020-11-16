@@ -18,17 +18,18 @@ void exemplo01(); // Ponteiro declaração
 void exemplo02(); // Ponteiro manipulação
 void exemplo03(); // Ponteiro com vetor (trabalhando com vetores)
 void exemplo04(); // Alocação de memória
-void exemplo05();
-void exemplo06();
+void exemplo05(); // Array utilizando ponteiros e alocação dinâmica
+void exemplo06(); // Array utilizando ponteiros e alocação dinâmica (incrementando o ponteiro para percorrer o array)
 void printStringInt( char *word, int *pt);
 
-
+// Definição do novo tipo de dados
 struct tipo_pessoa {
-	char *nome = NULL;
+	char *nome;
 	int idade;
 	float peso;
 };
 
+// Dando um nome amigável para o novo tipo de dados.
 typedef struct tipo_pessoa tPessoa;
 
 void imprimirPessoa(tPessoa pessoa) {
