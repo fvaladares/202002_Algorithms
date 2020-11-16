@@ -6,6 +6,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 /**
  * malloc -- aloca memória dinamicamente
@@ -18,18 +19,18 @@ void exemplo01(); // Ponteiro declaração
 void exemplo02(); // Ponteiro manipulação
 void exemplo03(); // Ponteiro com vetor (trabalhando com vetores)
 void exemplo04(); // Alocação de memória
-void exemplo05(); // Array utilizando ponteiros e alocação dinâmica
-void exemplo06(); // Array utilizando ponteiros e alocação dinâmica (incrementando o ponteiro para percorrer o array)
-void printStringInt( char *word, int *pt);
+void exemplo05();
+void exemplo06();
+void exemplo07VetorPonteiro();
+void exemplo08MatrizPonteiro();
+void printStringInt(char *word, int *pt);
 
-// Definição do novo tipo de dados
 struct tipo_pessoa {
 	char *nome;
 	int idade;
 	float peso;
 };
 
-// Dando um nome amigável para o novo tipo de dados.
 typedef struct tipo_pessoa tPessoa;
 
 void imprimirPessoa(tPessoa pessoa) {
@@ -40,52 +41,112 @@ void imprimirPessoa(tPessoa pessoa) {
 	printf("\n");
 }
 
-int main() {
-
+void exemploEstrutura() {
 	struct tipo_pessoa pessoa;
 	tPessoa pessoas[10];
 
-	pessoa.nome = "Fabricio Valadares";
+	pessoa.nome = "Fabricio Geraldo Valadares";
 	pessoa.idade = 35;
 	pessoa.peso = 90.5f;
 
 	imprimirPessoa(pessoa);
+}
 
+int main() {
 
+	int opt = 0;
 
+	srand(time(0));
 
-//	exemplo01();
-//	exemplo02();
-//	exemplo03();
-//	exemplo04();
-//	exemplo05();
-//	exemplo06();
+	for (int i = 0; i < 100; i++)
+		printf("%3d, ", rand()%100 + 1);
 
+	/*
+	 * Retire o comentário da linha que deseja executar.
+	 */
 
+	while (1) {
+		printf("\n\n>>>Escolha uma opção abaixo<<<\n\n");
 
+		printf("\t%2d - Declaração de ponteiros\n", 1);
+		printf("\t%2d - Ponteiro manipulação\n", 2);
+		printf("\t%2d - Ponteiro com vetor\n", 3);
+		printf("\t%2d - Alocação de memória, uma variável\n", 4);
+		printf("\t%2d - Alocação de memória, vetor \n", 5);
+		printf("\t%2d - Alocação de memória, vetor (caminhando com ptr)\n", 6);
+		printf("\t%2d - Alocação de memória, vetor (calloc + ptr auxiliar)\n",
+				7);
+		printf("\t%2d - Alocação de memória, matriz\n", 8);
 
+		printf("Opção:\\>");
+		scanf("%d", &opt);
 
+		switch (opt) {
+		case 1:
+			exemplo01();
+			break;
+		case 2:
+			exemplo02();
+			break;
+		case 3:
+			exemplo03();
+			break;
+		case 4:
+			exemplo04();
+			break;
+		case 5:
+			exemplo05();
+			break;
+		case 6:
+			exemplo06();
+			break;
 
+		case 7:
+			exemplo07VetorPonteiro();
+			break;
+		case 8:
+			exemplo08MatrizPonteiro();
+			break;
+		default:
+			printf(
+					"\n\nOpção inválida, tente novamente ou, pressione ctrl+c para cancelar.\n");
+			break;
+		}
+	}
+
+	/**
+	 * Testes
+	 */
+
+	//	printf("\npt: \t%p", pt);
+	//	printf("\nptaux: \t%p", ptAux);
+	//
+	//	ptAux++;
+	//	printf("\npt: \t%p", pt);
+	//	printf("\nptaux: \t%p", ptAux);
+	//	for (int i = 0; i < 100; i++){
+	//
+	//	}
 	return 0;
 }
 
-void exemplo01 (){
-	  int *pt = NULL;
-	  int count = 10;
+void exemplo01() {
+	int *pt = NULL;
+	int count = 10;
 
-	  pt = &count;
+	pt = &count;
 
-	  *pt = 13;
+	*pt = 13;
 
-	  printf("count: %d\n", count); // %d número inteiro
-	  printf("*pt: %d\n", *pt);
-	  printf("pt: \t\t %p\n", pt); // %p endereço de memória
-	  printf("&count: \t %p\n", &count);
-	  printf("&pt: \t\t %p\n", &pt); // %p endereço de memória
+	printf("count: %d\n", count); // %d número inteiro
+	printf("*pt: %d\n", *pt);
+	printf("pt: \t\t %p\n", pt); // %p endereço de memória
+	printf("&count: \t %p\n", &count);
+	printf("&pt: \t\t %p\n", &pt); // %p endereço de memória
 
 }
 
-void exemplo02 (){
+void exemplo02() {
 	int a = 10;
 	int b = 20;
 	int *pta;
@@ -119,7 +180,6 @@ void exemplo02 (){
 
 	printf("\n");
 
-
 	pta = &a;
 	ptb = &b;
 
@@ -144,31 +204,30 @@ void exemplo03() {
 	// pt aponta para num ou pt = &num[0]
 	pt = num;
 
-// Percorrer o vetor usando o ponteiro;
-	for (int i = 0; i < 10; i++ ){
-	  *pt = i+1; // Alternado o valor do vetor
-	  pt++; // incrementa o endereço apontado pelo ponteiro.
+	// Percorrer o vetor usando o ponteiro;
+	for (int i = 0; i < 10; i++) {
+		*pt = i + 1; // Alternado o valor do vetor
+		pt++; // incrementa o endereço apontado pelo ponteiro.
 	}
 
 	pt = num; // retorna com o ponteiro para a cabeça do vetor
 
 	printf("\nImprimindo: \n");
 
-	for (int i =0; i < 10; i++ ){
-	  printf("%d, ", *pt);
-	  pt++;
+	for (int i = 0; i < 10; i++) {
+		printf("%d, ", *pt);
+		pt++;
 	}
-//
-//	printf("%li bytes\n", sizeof(int));
-//	printf("%li bytes\n", sizeof(float));
-//	printf("%li bytes\n", sizeof(double));
-
+	//
+	//	printf("%li bytes\n", sizeof(int));
+	//	printf("%li bytes\n", sizeof(float));
+	//	printf("%li bytes\n", sizeof(double));
 
 }
 
 void exemplo04() {
-//	void *malloc (unsigned int num)
-//	malloc(sizeof(int))
+	//	void *malloc (unsigned int num)
+	//	malloc(sizeof(int))
 
 	int *pt = NULL;
 
@@ -187,7 +246,6 @@ void exemplo04() {
 
 }
 
-
 void exemplo05() {
 	int *pt = NULL;
 	int a;
@@ -195,22 +253,21 @@ void exemplo05() {
 	printf("\nA quantidade de idades: ");
 	scanf("%d", &a); // endereço onde o dado será salvo
 	// reserva memória para um vetor de inteiros!
-	pt = malloc( a * sizeof(int));
+	pt = malloc(a * sizeof(int));
 
 	// Preenche o vetor
-	for (int i =0; i < a; i++ ){
-	  printf("Infore a %da. idade: ", i+1);
-	  scanf("%d", &pt[i]);
+	for (int i = 0; i < a; i++) {
+		printf("Infore a %da. idade: ", i + 1);
+		scanf("%d", &pt[i]);
 	}
 
 	printf("\nImprimendo as idades informadas: \n");
 
-	for (int i =0; i < a; i++ ){
-	  printf("%d, ", pt[i]);
+	for (int i = 0; i < a; i++) {
+		printf("%d, ", pt[i]);
 	}
 
 }
-
 
 void exemplo06() {
 	int *pt = NULL;
@@ -219,33 +276,30 @@ void exemplo06() {
 	printf("\nExemplo 06 A quantidade de idades: ");
 	scanf("%d", &a); // endereço onde o dado será salvo
 	// reserva memória para um vetor de inteiros!
-	pt = malloc( a * sizeof(int));
+	pt = malloc(a * sizeof(int));
 
 	// Preenche o vetor
-	for (int i =0; i < a; i++ ){
-	  printf("Infore a %da. idade: ", i+1);
-	  scanf("%d", pt);
-	  pt++;
+	for (int i = 0; i < a; i++) {
+		printf("Infore a %da. idade: ", i + 1);
+		scanf("%d", pt);
+		pt++;
 	}
 
 	// retorna para a posição inicial
-	for (int i =0; i < a; i++ ){
+	for (int i = 0; i < a; i++) {
 		pt--;
 	}
 
-
-
 	printf("\nImprimendo as idades informadas: \n");
 
-
-	for (int i =0; i < a; i++ ){
-	  printf("%d, ", *pt);
-	  pt++;
+	for (int i = 0; i < a; i++) {
+		printf("%d, ", *pt);
+		pt++;
 	}
 
 	printf("\n");
 
-	for (int i =0; i < a; i++ ){
+	for (int i = 0; i < a; i++) {
 		pt--;
 	}
 
@@ -254,12 +308,84 @@ void exemplo06() {
 	free(pt); // libera a memória aloca
 	pt = NULL;
 
-
 	printf("\nDepois da mudança: %p\n", &pt);
 
 }
-void printStringInt(char *word, int *pt){
-	printf("%s %d\n", word, *pt);
+
+void exemplo07VetorPonteiro() {
+	srand(time(NULL)); // Cria uma semente baseado na hora atual
+	int *pt = NULL;
+	int *ptAux = NULL;
+
+	printf("\n\nTeste 1: \n\n");
+	pt = calloc(10, sizeof(int));
+
+	ptAux = pt;
+
+	// Demonstra que o calloc preeche o novo vetor com zeros
+	for (int i = 0; i < 10; i++) {
+		printf("*ptAux: %3d, i: %3d\n", *ptAux, i);
+		ptAux++;
+	}
+
+	printf("\n\nTeste 2:\n\n");
+
+	// Aponta o ptAux para o vetor alocado dinâmicamente
+	ptAux = pt;
+
+	for (int i = 0; i < 10; i++) {
+//		Gera um número aleatório entre 1 e 100
+		*ptAux = rand() % 100 + 1; //
+		ptAux++;
+	}
+
+	// Volta o ponteiro para acabeça do vetor.
+	ptAux = pt;
+
+	for (int i = 0; i < 10; i++) {
+		printf("*ptAux: %3d, i: %3d\n", *ptAux, i);
+		ptAux++;
+	}
+
+	printf("\n");
+
 }
 
+void exemplo08MatrizPonteiro() {
+	srand(time(NULL));
+	int **pt = NULL;
+	int *ptAux = NULL;
+	const int MAX = 5;
+
+	pt = calloc(MAX, sizeof(int*));
+
+	// Alocação de memória para as linhas
+	for (int i = 0; i < MAX; i++) {
+		pt[i] = calloc(MAX, sizeof(int));
+	}
+
+	for (int i = 0; i < MAX; i++) {
+		ptAux = pt[i];
+		for (int j = 0; j < MAX; j++){
+//			pt[i][j] = (rand() % 100 + 1);
+			*ptAux = (rand()% 100 + 1);
+			ptAux++;
+		}
+	}
+
+
+	for (int i = 0; i < MAX; i++) {
+		ptAux = pt[i]; // ptAux será usado para percorrer as colunas a matrix
+		printf("|");
+		for (int j = 0; j < MAX; j++){
+			printf("[%d][%d]: %2d | ", i+1, j+1, *ptAux);
+			ptAux++;
+		}
+		printf("\n");
+	}
+}
+
+void printStringInt(char *word, int *pt) {
+	printf("%s %d\n", word, *pt);
+}
 
