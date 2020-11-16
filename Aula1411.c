@@ -206,6 +206,7 @@ void exemplo03() {
 
 	// Percorrer o vetor usando o ponteiro;
 	for (int i = 0; i < 10; i++) {
+		// num[i] = i+1
 		*pt = i + 1; // Alternado o valor do vetor
 		pt++; // incrementa o endereço apontado pelo ponteiro.
 	}
@@ -233,12 +234,13 @@ void exemplo04() {
 
 	pt = malloc(sizeof(int)); // reserva memória para um inteiro!
 
-	if (!pt) {
+	if (pt == NULL) {
 		printf("\n**ERRO: Memória insuficiente!!**\n");
 		return;
 	}
 
 	printf("\nInforme a idade: ");
+//	scanf("%d", &idade);
 	scanf("%d", pt); // endereço onde o dado será salvo
 
 	// imprime o conteúdo associado ao ponteiro
@@ -308,7 +310,7 @@ void exemplo06() {
 	free(pt); // libera a memória aloca
 	pt = NULL;
 
-	printf("\nDepois da mudança: %p\n", &pt);
+	printf("\nDepois da mudança: %p\n", pt);
 
 }
 
@@ -353,17 +355,19 @@ void exemplo07VetorPonteiro() {
 
 void exemplo08MatrizPonteiro() {
 	srand(time(NULL));
-	int **pt = NULL;
+	int **pt = NULL; // armazenara uma matriz dinâmica
 	int *ptAux = NULL;
 	const int MAX = 5;
 
+	// Alocação das linhas da matriz
 	pt = calloc(MAX, sizeof(int*));
 
-	// Alocação de memória para as linhas
+	// Alocação de memória para as colunas
 	for (int i = 0; i < MAX; i++) {
 		pt[i] = calloc(MAX, sizeof(int));
 	}
 
+	// Preenchimento da matrix
 	for (int i = 0; i < MAX; i++) {
 		ptAux = pt[i];
 		for (int j = 0; j < MAX; j++){
@@ -373,7 +377,7 @@ void exemplo08MatrizPonteiro() {
 		}
 	}
 
-
+	// Impressão da matriz
 	for (int i = 0; i < MAX; i++) {
 		ptAux = pt[i]; // ptAux será usado para percorrer as colunas a matrix
 		printf("|");
