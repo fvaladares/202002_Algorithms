@@ -78,7 +78,9 @@ List* insert(List* list, int info){
 	return node;
 }
 
-
+/*TODO: Corrigir o erro quando a posição ultrapassar o limite da lista!! 
+* Lembre-se o fim da lista é marcado por um NULL
+*/
 List* insertAtPosition(List* list, int info, int position){
 	List *aux = list; // ponteiro auxiliar
 	List *node = newNode(); // novo nó (em branco)
